@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Into Orbit</title>
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .page-hero { padding:96px 0 72px; border-bottom:1px solid var(--rule); }
+    .page-hero h1 { font-size:clamp(48px,6vw,80px); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; padding:96px 0; }
+    .contact-info { display:flex; flex-direction:column; gap:40px; }
+    .contact-info h2 { font-size:clamp(24px,3vw,36px); }
+    .contact-info p { font-size:17px; color:var(--ink-mid); line-height:1.8; }
+    .contact-email { display:inline-block; font-family:var(--font-head); font-size:22px; font-weight:700; color:var(--magenta); border-bottom:2px solid var(--magenta); padding-bottom:4px; transition:color 0.2s; }
+    .contact-email:hover { color:var(--magenta-dk); }
+    .contact-topics { display:flex; flex-direction:column; gap:0; border:1px solid var(--rule); border-radius:12px; overflow:hidden; }
+    .topic { padding:20px 24px; border-bottom:1px solid var(--rule); display:flex; gap:16px; align-items:flex-start; }
+    .topic:last-child { border-bottom:none; }
+    .topic-icon { font-size:20px; flex-shrink:0; margin-top:2px; }
+    .topic h4 { font-size:15px; font-weight:700; margin-bottom:4px; }
+    .topic p { font-size:14px; color:var(--ink-mid); line-height:1.6; }
+    @media(max-width:768px){ .contact-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html">Books</a><a href="apps.html">Apps</a>
+      <a href="about.html">About</a><a href="contact.html" class="active">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Get in touch</p>
+    <h1>We'd love<br>to hear from you</h1>
+  </div>
+</section>
+
+<section>
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <div>
+        <h2>Say hello</h2>
+        <p style="margin-top:16px;">For support, feedback, book enquiries, or anything else — email is the best way to reach us. We read and respond to everything.</p>
+      </div>
+      <div>
+        <p style="font-size:14px;color:var(--ink-light);margin-bottom:8px;font-family:var(--font-head);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">Email us at</p>
+        <a href="mailto:hello@intoorbit.co.uk" class="contact-email">hello@intoorbit.co.uk</a>
+      </div>
+      <p style="font-size:15px;color:var(--ink-mid);">We aim to respond to all genuine enquiries within 2 business days.</p>
+    </div>
+    <div>
+      <p style="font-family:var(--font-head);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);margin-bottom:20px;">What can we help with?</p>
+      <div class="contact-topics">
+        <div class="topic">
+          <div class="topic-icon">🧩</div>
+          <div><h4>NODO App Support</h4><p>Bug reports, data queries, feature requests, or anything else about the app.</p></div>
+        </div>
+        <div class="topic">
+          <div class="topic-icon">📚</div>
+          <div><h4>Book Enquiries</h4><p>Questions about Just Find editions, bulk orders, or upcoming NODO books.</p></div>
+        </div>
+        <div class="topic">
+          <div class="topic-icon">🤝</div>
+          <div><h4>Press &amp; Partnerships</h4><p>Coverage, collaboration, or anything business-related.</p></div>
+        </div>
+        <div class="topic">
+          <div class="topic-icon">💬</div>
+          <div><h4>General Feedback</h4><p>We genuinely want to hear what you think — about the app, the books, anything.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>Products</h4><a href="nodo.html">NODO App</a><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

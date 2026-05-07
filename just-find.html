@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Find — Personalised Word Search Books | Into Orbit</title>
+  <meta name="description" content="The Just Find series: personalised word search puzzle books. Hundreds of name editions, available on Amazon.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .jf-hero { padding:96px 0 80px; border-bottom:1px solid var(--rule); }
+    .jf-hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .jf-hero-text h1 { font-size:clamp(40px,5vw,64px); margin-bottom:24px; }
+    .jf-hero-text h1 em { font-style:normal; color:var(--magenta); }
+    .jf-hero-text p { font-size:18px; color:var(--ink-mid); line-height:1.8; margin-bottom:36px; max-width:480px; }
+    .jf-hero-image { border-radius:12px; overflow:hidden; aspect-ratio:3/4; }
+    .jf-hero-image .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+
+    .what-section { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .what-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:56px; }
+    .what-item { display:flex; flex-direction:column; gap:14px; }
+    .what-icon { width:48px; height:48px; background:rgba(229,0,125,0.08); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; }
+    .what-item h3 { font-size:19px; }
+    .what-item p { font-size:15px; color:var(--ink-mid); line-height:1.75; }
+
+    .browse-section { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .browse-intro { max-width:640px; margin-bottom:56px; }
+    .browse-intro h2 { font-size:clamp(28px,3vw,42px); margin-bottom:16px; }
+    .browse-intro p { font-size:17px; color:var(--ink-mid); line-height:1.75; }
+    .book-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-bottom:48px; }
+    .book-card { display:flex; flex-direction:column; gap:12px; }
+    .book-card-img { border-radius:8px; overflow:hidden; aspect-ratio:3/4; }
+    .book-card-img .img-placeholder { width:100%; height:100%; border-radius:0; border:none; font-size:12px; }
+    .book-card h4 { font-size:15px; font-weight:700; }
+    .book-card p { font-size:13px; color:var(--ink-light); }
+    .book-card .amazon-link { font-family:var(--font-head); font-size:13px; font-weight:600; color:var(--magenta); display:inline-flex; align-items:center; gap:4px; transition:gap 0.2s; }
+    .book-card .amazon-link:hover { gap:8px; }
+    .browse-cta { text-align:center; padding:48px; background:var(--bg-off); border-radius:12px; }
+    .browse-cta h3 { font-size:24px; margin-bottom:12px; }
+    .browse-cta p { font-size:16px; color:var(--ink-mid); margin-bottom:28px; }
+
+    .bulk-section { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .bulk-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .bulk-text h2 { font-size:clamp(28px,3vw,40px); margin-bottom:16px; }
+    .bulk-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; margin-bottom:16px; }
+
+    .faq-section { padding:96px 0; }
+    .faq-list { max-width:720px; margin-top:48px; }
+    .faq-item { border-bottom:1px solid var(--rule); }
+    .faq-q { width:100%; background:none; border:none; text-align:left; padding:24px 0; font-family:var(--font-head); font-size:17px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .faq-q:hover { color:var(--magenta); }
+    .faq-a { padding:0 0 24px; font-size:16px; color:var(--ink-mid); line-height:1.8; display:none; }
+    .faq-a.open { display:block; }
+
+    @media(max-width:900px){
+      .jf-hero-inner{grid-template-columns:1fr;}
+      .jf-hero-image{aspect-ratio:3/2;}
+      .what-grid{grid-template-columns:1fr 1fr;}
+      .book-grid{grid-template-columns:repeat(2,1fr);}
+      .bulk-inner{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .what-grid{grid-template-columns:1fr;}
+      .browse-cta{padding:32px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html" class="active">Books</a>
+      <a href="apps.html">Apps</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="jf-hero">
+  <div class="container">
+    <div class="jf-hero-inner">
+      <div class="jf-hero-text">
+        <p class="eyebrow">Books · Personalised Word Search</p>
+        <h1>Word search.<br><em>Made for one.</em></h1>
+        <p>The Just Find series is a collection of personalised word search puzzle books — each edition built around a first name. The kind of gift that takes seconds to choose and lands every time.</p>
+        <a href="#browse" class="btn btn-primary">Browse editions</a>
+      </div>
+      <div class="jf-hero-image">
+        <img src="images/jf-hero.png" alt="Just Find books" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="what-section">
+  <div class="container">
+    <p class="eyebrow">What makes it different</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Not just a word search book</h2>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="what-icon">✏️</div>
+        <h3>Built around a name</h3>
+        <p>Every edition is built specifically around one first name. The puzzles, the words, and the cover all reflect that name — it isn't a generic book with a name sticker on it.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">🧩</div>
+        <h3>Hours of puzzles</h3>
+        <p>Packed with themed word searches across a range of difficulty levels — suitable for every age and puzzle experience. No filler, just puzzles.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">📦</div>
+        <h3>Delivered by Amazon</h3>
+        <p>Every edition is available via Amazon, with all their standard delivery options including next-day and Prime. No waiting weeks for a custom print.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">🎁</div>
+        <h3>Always the right gift</h3>
+        <p>A puzzle book that has someone's name on it — literally — always gets a reaction. It works for birthdays, Christmas, Father's Day, or just because.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">👨‍👩‍👧</div>
+        <h3>Every age, every level</h3>
+        <p>Not just for adults. Just Find editions work for kids, teens, and adults alike. If someone has a name, there's probably an edition for them.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">🔄</div>
+        <h3>New editions added often</h3>
+        <p>Can't find a name? Get in touch. We regularly add new names and themed editions based on requests. The catalogue keeps growing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="browse-section" id="browse">
+  <div class="container">
+    <div class="browse-intro">
+      <p class="eyebrow">Browse the series</p>
+      <h2>Find your edition</h2>
+      <p>Hundreds of name editions available — all on Amazon. A selection is shown below. Click any edition to view it on Amazon, or search for a specific name directly.</p>
+    </div>
+    <div class="book-grid">
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-1.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Henry</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-HENRY-Personalised-enthusiasts/dp/B0FXRJ76D9/ref=sr_1_1?crid=1ZV1B649RDU3W&dib=eyJ2IjoiMSJ9.JffLlZtoh6_cOCFApcMkRKq_PBROAtLV3dK5ZYZFBMm0yqO2Ib_e3d-3X0rScdponQDTzSXJ2hyqboZD2sI62JnFs3x3AS6OQ1ixUfCsMug.2MEySP9cNMNAmQTfFCYxOim8oBg--EGW6ZC1abLZCxk&dib_tag=se&keywords=just+find+henry+wordsearch&qid=1778144963&s=books&sprefix=just+find+henry+wordsearch%2Cstripbooks%2C91&sr=1-1" target="_blank class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-2.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Lyla</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-LYLA-Personalised-enthusiasts/dp/B0GT8NMB7M/ref=sr_1_1?crid=36Q7CIIOSPPEH&dib=eyJ2IjoiMSJ9.G7ndG0h7Dp_1Zy_DgVyiYp3MMNIJIzkhLzSYouE4erVoV10vg-BFByZFXr1SUj1C-an4orz6oI5saEsdLdvAjN-AZJXI7H9P0ARItNOE_Qk4OjwNhOLxAGPr9x6fh27snE0mxRjXAPfAh8fkp0vrkWAWslraD0FTnOniO_psZxNSVP8xa6SvCYkOvqaRTFhvNfkdL245e-VHJUg0VIa5HpqBpv-miUQAhyTOlR3aOh0.1QxGe5a9b6-4VdgKZcCFapBufLiXy5_ZlFyQ4itZgkc&dib_tag=se&keywords=just+find+lyla+wordsearch&qid=1778144921&s=books&sprefix=just+find+lyla+wordsearch%2Cstripbooks%2C95&sr=1-1" target="_blank class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-3.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Noah</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-NOAH-Personalised-enthusiasts/dp/B0GTTB9XGM/ref=sr_1_1?crid=3U2IGYV9A2PEQ&dib=eyJ2IjoiMSJ9._iqh-yYseRh12mBNoDFAQDpkpzVnYnG4KLGQytbSuW17cYUbu6AuVJ9A0yUmlsUI7FniEVO6a16a901qiriYIiFHht8LoEgummkovsAb_PdeHERtgFCQylw7W4b3AyTlTlpaf41lbabFH-QNlXUXdQd7Jk-DjrbctgNQe0fsxU-BNuMWCXUqIJldrLWBbJFXgy5Jo_uW7gTyJiz5mJ9Q23y2u-DF8ybGu2nsh7zbjpg.jK-SuuvoSSNLLkQ0DJyUCsUaqo4XF9oDbrDumsY_LPA&dib_tag=se&keywords=just+find+noah+wordsearch&qid=1778144870&s=books&sprefix=just+find+noah+aowrsearch%2Cstripbooks%2C102&sr=1-1" target="_blank class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-4.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Nicole</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-NICOLE-Personalised-enthusiasts/dp/B0GG629T9T/ref=sr_1_1?crid=1UUYJGRDS14WF&dib=eyJ2IjoiMSJ9.fEqLzjSez8rR8xNRPaURqlUyJ7TR9330C04bnTaQgLjFhOS5qvCPg5YIg-zu9rVAi1x_ychsHy6RRNeYe_dB7uKM9Wm50AWYQU2XtfBa0Pllq_l2zlj0OcPKi91i12ZJKNH8WMTHmDYfwXb8bEgKeS-g5ziLVC4voWtbqKy_HL4N_9_aTFGy-2PL4sp2mIqLWWNbRFP9yXJ4luh0rN-gkB3V1LLcq3KvV5bwStYyjIA.gEia780-pG1dqY0tZ8vJrYLvzaW8FPaIAq7fXq5yV_A&dib_tag=se&keywords=just+find+nicole+wordsearch&qid=1778145682&s=books&sprefix=just+find+nicole+wordsearch%2Cstripbooks%2C103&sr=1-1" target="_blank" class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-5.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Muhammad</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-MUHAMMAD-Personalised-enthusiasts/dp/B0GG67NWC1/ref=sr_1_1?crid=N8QRURVJZSKF&dib=eyJ2IjoiMSJ9.URjSU1DYl99HX669j8lFEw.CMdhfSSgC4qFjWph3G9AgcS4wkaGDz-wokRUFxDmQ30&dib_tag=se&keywords=just+find+muhammad+wordsearch&qid=1778145728&s=books&sprefix=just+find+muhammed+wordsearch%2Cstripbooks%2C93&sr=1-1" target="_blank" class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-6.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Richard</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-RICHARD-Personalised-enthusiasts/dp/B0GTT88R7N/ref=sr_1_1?crid=KXWKLFX8EN6M&dib=eyJ2IjoiMSJ9.jZXyBd4QfO8kY0VQfQAVyqq_PBROAtLV3dK5ZYZFBMmK0x3q5EngTP7O3gJoanX2hWDj9tjhBP4w4MK4Ri-IwPZary_gM5sS8Ds_P-mAgP8PfDgsVnASAJPnggPjfR-4z-sfZorOmNw8BATSrV2qKuqTOPuhBvAwH_WfC4iPNVE.g2yuVpy12Tvo2gwCaTfsIkgaUh-CuzS3hHctmD1pmbA&dib_tag=se&keywords=just+find+richard+wordsearch&qid=1778145775&s=books&sprefix=just+find+richard+wordsearch%2Cstripbooks%2C110&sr=1-1" target="_blank" class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-7.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Rebecca</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-REBECCA-Personalised-enthusiasts/dp/B0GTSXN5LV/ref=sr_1_1?crid=2DA5A0UG6I845&dib=eyJ2IjoiMSJ9.Pr9KYkXfrlKr0xOd7NQmrN4KkdVYUuCbi-rnm4JAh1E.pnv581jivp0jvU6FrCFt70wJGZLakgrWBb5zY4PNyy4&dib_tag=se&keywords=just+find+Rebecca+wordsearch&qid=1778145826&s=books&sprefix=just+find+rebecca+wordsearch%2Cstripbooks%2C88&sr=1-1" target="_blank" class="amazon-link">View on Amazon →</a>
+      </div>
+      <div class="book-card">
+        <div class="book-card-img"><img src="images/jf-sample-8.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <h4>Just Find — Poppy</h4><p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-POPPY-Personalised-enthusiasts/dp/B0GTT5MYLM/ref=sr_1_1?crid=F1TUN8VL6QJ4&dib=eyJ2IjoiMSJ9.oaMT9l71Qj0wSAPj0Gb7ifZpEw0NNjfjmgSUjAdwRDpIzdNCoyauX9JJwBoP7Msr-SwtIlTPKpIfCWoS529K5bcVj6Yf05O6woo3iz-dQShnGV0nGCvh0keurwOoppobnE0mxRjXAPfAh8fkp0vrkVPaRWTOYuucDpeIfnVTKsC_die115GzEF6B7SPBkrEK5jsovCq7f-pLYDm954yOhikwH_N2eBOcdzRjP0Fw6aM.6Ru6wkyDpXL3Ikh9e9RXhEC0Ld6fQTEv2cHQDiVzK_s&dib_tag=se&keywords=just+find+poppy+wordsearch&qid=1778145856&s=books&sprefix=just+find+poppy+wordsearch%2Cstripbooks%2C100&sr=1-1" target="_blank" class="amazon-link">View on Amazon →</a>
+      </div>
+    </div>
+    <div class="browse-cta">
+      <h3>Don't see the name you need?</h3>
+      <p>Browse the full collection on Amazon — hundreds of editions available.</p>
+      <a href="https://www.amazon.co.uk/dp/B0FLPRWV8V?binding=paperback&qid=1778145909&sr=1-3&ref=dbs_dp_rwt_sb_pc_tpbk" target="_blank" rel="noopener" class="btn btn-primary">Search all editions on Amazon</a>
+    </div>
+  </div>
+</section>
+
+<!-- BULK ORDERS -->
+<section class="bulk-section">
+  <div class="container">
+    <div class="bulk-inner">
+      <div class="bulk-text">
+        <p class="eyebrow">Bulk orders</p>
+        <h2>Ordering in volume?</h2>
+        <p>Whether you're a school, business, events organiser, or buying gifts for a large group — we can help with bulk orders of Just Find editions.</p>
+        <p>Get in touch with the quantity you need and which editions you're interested in and we'll come back to you.</p>
+        <a href="mailto:hello@intoorbit.co.uk" class="btn btn-primary">hello@intoorbit.co.uk</a>
+      </div>
+ 
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <p class="eyebrow">Questions</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many editions are there? <span>+</span></button>
+        <div class="faq-a">Hundreds, and more are added regularly. The collection covers the most common first names and keeps growing based on requests and demand. If you can't find a specific name, get in touch.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are these books really personalised, or is it just the cover? <span>+</span></button>
+        <div class="faq-a">Each edition is built around a specific name — the content is tailored to reflect that name, not just slapped on a generic cover. That's what makes Just Find different from other "personalised" puzzle books.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I buy one? <span>+</span></button>
+        <div class="faq-a">All editions are available on Amazon. Click any edition above to go directly to its Amazon listing, or search "Just Find Into Orbit" on Amazon to browse the full catalogue.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How quickly will it arrive? <span>+</span></button>
+        <div class="faq-a">Delivery is handled by Amazon. Delivery times vary by location but Prime and standard delivery options are usually available.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are these suitable for children? <span>+</span></button>
+        <div class="faq-a">Yes. Just Find editions include puzzles at varying difficulty levels, making them suitable for older kids, teens, and adults. There's no inappropriate content of any kind.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);">
+        <p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p>
+      </div>
+      <div class="footer-col"><h4>Products</h4><a href="nodo.html">NODO App</a><a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}
+  function toggleFaq(btn){const a=btn.nextElementSibling;const isOpen=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(el=>{el.classList.remove('open');el.previousElementSibling.querySelector('span').textContent='+';});if(!isOpen){a.classList.add('open');btn.querySelector('span').textContent='−';}}
+</script>
+</body>
+</html>

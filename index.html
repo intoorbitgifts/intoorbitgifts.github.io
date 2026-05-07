@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Into Orbit — Puzzle Books &amp; Apps</title>
+  <meta name="description" content="Into Orbit is an independent UK publisher of puzzle books and mobile games. Home of NODO and the Just Find personalised word search series.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ── Hero slideshow ── */
+    .hero { padding: 80px 0 0; }
+    .hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .hero-text h1 { font-size:clamp(40px,5vw,68px); margin-bottom:28px; }
+    .hero-text h1 em { font-style:normal; color:var(--magenta); }
+    .hero-text .lede { margin-bottom:40px; }
+    .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; }
+    .slideshow { border-radius:12px; overflow:hidden; aspect-ratio:4/3; position:relative; background:#f0f0f0; }
+    .slide { position:absolute; inset:0; opacity:0; transition:opacity 0.8s ease; }
+    .slide.active { opacity:1; }
+    .slide .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+    .slide-dots { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2; }
+    .slide-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; transition:background 0.2s; }
+    .slide-dot.active { background:#fff; }
+
+    .products-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; }
+    .products-header h2 { font-size:clamp(28px,3vw,40px); }
+    .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--rule); border:2px solid var(--rule); border-radius:12px; overflow:hidden; margin-bottom:96px; }
+    .product-card { background:var(--bg); padding:40px 32px; display:flex; flex-direction:column; gap:18px; transition:background 0.2s; }
+    .product-card:hover { background:var(--bg-off); }
+    .product-card-img { border-radius:8px; overflow:hidden; aspect-ratio:16/10; }
+    .product-card-img .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+    .product-tag { display:inline-block; font-family:var(--font-head); font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--magenta); background:rgba(229,0,125,0.08); padding:4px 10px; border-radius:100px; width:fit-content; }
+    .product-card h3 { font-size:22px; }
+    .product-card p { font-size:15px; color:var(--ink-mid); flex:1; }
+    .arrow-link { font-family:var(--font-head); font-size:14px; font-weight:600; color:var(--magenta); display:flex; align-items:center; gap:6px; transition:gap 0.2s; }
+    .arrow-link:hover { gap:10px; }
+
+    .nodo-feature { background:var(--bg-dark); color:#fff; border-radius:16px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; margin-bottom:96px; }
+    .nodo-text { padding:80px 64px; display:flex; flex-direction:column; justify-content:center; gap:24px; }
+    .nodo-text .eyebrow { color:rgba(163,221,232,0.8); }
+    .nodo-text h2 { font-size:clamp(28px,3.5vw,44px); color:#fff; }
+    .nodo-text p { font-size:17px; color:rgba(255,255,255,0.65); line-height:1.7; }
+    .nodo-text .ctas { display:flex; gap:14px; flex-wrap:wrap; }
+    .nodo-img { background:#1E2A35; min-height:400px; display:flex; align-items:center; justify-content:center; }
+    .nodo-img .img-placeholder { width:100%; height:100%; min-height:400px; background:#1E2A35; border:none; color:rgba(255,255,255,0.2); }
+
+    .jf-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-bottom:96px; }
+    .jf-image { border-radius:12px; overflow:hidden; aspect-ratio:3/4; }
+    .jf-image .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+    .jf-text { display:flex; flex-direction:column; gap:24px; }
+    .jf-text h2 { font-size:clamp(28px,3vw,44px); }
+    .jf-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; }
+    .jf-features { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .jf-features li { display:flex; align-items:center; gap:12px; font-size:15px; color:var(--ink-mid); }
+    .jf-features li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--magenta); flex-shrink:0; }
+
+    /* NODO books block — matches jf-inner layout */
+    .nodo-books-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-bottom:96px; }
+    .nodo-books-image { border-radius:12px; overflow:hidden; aspect-ratio:3/4; }
+    .nodo-books-image .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+    .nodo-books-text { display:flex; flex-direction:column; gap:24px; }
+    .nodo-books-text h2 { font-size:clamp(28px,3vw,44px); }
+    .nodo-books-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; }
+
+    .stats-bar { background:var(--bg-off); border-radius:12px; padding:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:32px; text-align:center; margin-bottom:96px; }
+    .stat-item h3 { font-size:44px; font-weight:800; color:var(--magenta); margin-bottom:8px; }
+    .stat-item p { font-size:14px; color:var(--ink-light); font-weight:500; }
+
+    /* Bulk orders */
+    .bulk-strip { background:var(--bg-off); border-radius:12px; padding:40px 48px; margin-bottom:96px; display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .bulk-strip h3 { font-size:22px; margin-bottom:8px; }
+    .bulk-strip p { font-size:15px; color:var(--ink-mid); }
+
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;}
+      .slideshow{display:none;}
+      .products-grid{grid-template-columns:1fr;}
+      .nodo-feature{grid-template-columns:1fr;}
+      .nodo-img{min-height:260px;}
+      .jf-inner{grid-template-columns:1fr;}
+      .jf-image{aspect-ratio:3/2;}
+      .nodo-books-inner{grid-template-columns:1fr;}
+      .nodo-books-image{aspect-ratio:3/2;}
+      .stats-bar{grid-template-columns:repeat(2,1fr);}
+      .bulk-strip{flex-direction:column;align-items:flex-start;}
+    }
+    @media(max-width:600px){
+      .products-header{flex-direction:column;align-items:flex-start;gap:16px;}
+      .nodo-text{padding:48px 28px;}
+      .stats-bar{grid-template-columns:1fr 1fr;padding:32px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html">Books</a>
+      <a href="apps.html">Apps</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<!-- HERO with slideshow -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Independent Publisher · UK</p>
+        <h1>Puzzles that<br><em>stick with you</em></h1>
+        <p class="lede">Into Orbit creates puzzle books and mobile games designed for the long haul — the kind you return to, share, and remember.</p>
+        <div class="hero-ctas">
+          <a href="apps.html" class="btn btn-primary">Explore Apps</a>
+          <a href="books.html" class="btn btn-outline">Browse Books</a>
+        </div>
+      </div>
+      <div class="slideshow" id="heroSlideshow">
+        <div class="slide active"><img src="images/hero-nodo.png" alt="NODO app" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="slide"><img src="images/hero-nodo-books.png" alt="NODO Books" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="slide"><img src="images/hero-just-find.png" alt="Just Find" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="slide-dots">
+          <div class="slide-dot active" onclick="goSlide(0)"></div>
+          <div class="slide-dot" onclick="goSlide(1)"></div>
+          <div class="slide-dot" onclick="goSlide(2)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section">
+  <div class="container">
+    <div class="products-header">
+      <div>
+        <p class="eyebrow">What we make</p>
+        <h2>Games &amp; Books</h2>
+      </div>
+      <a href="books.html" class="btn btn-outline" style="font-size:14px;padding:10px 22px;">View all →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-card-img"><img src="images/product-nodo.png" alt="NODO app" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <span class="product-tag">App · Free</span>
+        <h3>NODO</h3>
+        <p>Every letter in the grid belongs to the hidden word — no noise, no filler. One word, one grid, every day. Simple to learn, genuinely satisfying to solve.</p>
+        <a href="nodo.html" class="arrow-link">Learn more →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><img src="images/product-just-find.png" alt="Just Find" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <span class="product-tag">Book Series</span>
+        <h3>Just Find</h3>
+        <p>The word search series with a personal twist. Hundreds of editions — each one built around a name. A gift that genuinely means something.</p>
+        <a href="just-find.html" class="arrow-link">Browse editions →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><img src="images/product-nodo-books.png" alt="NODO Books" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <span class="product-tag">Puzzle Books</span>
+        <h3>NODO Books</h3>
+        <p>The NODO format in print. Themed puzzle books across 10 seasons — Nature, Space, Ocean, Food, Science, Cities, Music, Sport, Abstract, and Mythology.</p>
+        <a href="nodo-books.html" class="arrow-link">Browse editions →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NODO FEATURE -->
+<section>
+  <div class="container">
+    <div class="nodo-feature">
+      <div class="nodo-text">
+        <p class="eyebrow">Featured App</p>
+        <p class="eyebrow" style="color:rgba(163,221,232,0.5);font-size:11px;letter-spacing:0.12em;margin-top:-12px;margin-bottom:16px;">· Wordsearch, with a Twist and a Turn ·</p>
+        <h2>Every letter in the grid is part of the word</h2>
+        <p>NODO is the only word puzzle where the grid contains only letters from the hidden word — no decoys, no noise. Connect them in any direction, keep your streak alive, and take on Pressure Mode when you're ready. Free to download.</p>
+        <div class="ctas">
+          <a href="nodo.html" class="btn btn-primary">Learn more</a>
+          <a href="#" class="btn btn-outline-white">Download free →</a>
+        </div>
+      </div>
+      <div class="nodo-img"><img src="images/nodo-feature.png" alt="NODO gameplay" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- JUST FIND -->
+<section class="section">
+  <div class="container">
+    <div class="jf-inner">
+      <div class="jf-image"><img src="images/jf-feature.png" alt="Just Find book" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="jf-text">
+        <p class="eyebrow">Books · Personalised</p>
+        <h2>Word search, made personal</h2>
+        <p>The Just Find series is a collection of personalised word search books — each edition built around a first name. Whether it's a birthday gift, a stocking filler, or something for yourself, there's an edition that feels like it was made for one person.</p>
+        <ul class="jf-features">
+          <li>Hundreds of personalised name editions</li>
+          <li>Suitable for all ages and abilities</li>
+          <li>Self-published on Amazon — delivered worldwide</li>
+          <li>New names and themes added regularly</li>
+        </ul>
+        <a href="just-find.html" class="btn btn-primary">Find your edition</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NODO BOOKS -->
+<section class="section">
+  <div class="container">
+    <div class="nodo-books-inner">
+      <div class="nodo-books-text">
+        <p class="eyebrow">Books · NODO Puzzle Books</p>
+        <h2>The NODO format, in print</h2>
+        <p>The same sharp, satisfying word-finding experience you know from the app — brought to life on paper. Ten themed editions available on Amazon: Nature, Space, Ocean, Food, Science, Cities, Music, Sport, Abstract, and Mythology.</p>
+        <ul class="jf-features">
+          <li>100 puzzles per book — 5 chapters, 20 puzzles each</li>
+          <li>Grid sizes increase chapter by chapter</li>
+          <li>Answer section included</li>
+          <li>Available on Amazon in all 10 themes</li>
+        </ul>
+        <a href="nodo-books.html" class="btn btn-primary">Browse editions</a>
+      </div>
+      <div class="nodo-books-image"><img src="images/nodo-books-feature.png" alt="NODO puzzle books" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section>
+  <div class="container">
+    <div class="stats-bar">
+      <div class="stat-item"><h3>100s</h3><p>Personalised book editions</p></div>
+      <div class="stat-item"><h3>10</h3><p>NODO themed seasons &amp; books</p></div>
+      <div class="stat-item"><h3>1</h3><p>Independent UK publisher</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BULK ORDERS -->
+<section>
+  <div class="container">
+    <div class="bulk-strip">
+      <div>
+        <h3>Bulk orders</h3>
+        <p>Looking to order multiple copies for an event, school, or business? Get in touch and we'll help.</p>
+      </div>
+      <a href="mailto:hello@intoorbit.co.uk" class="btn btn-outline">hello@intoorbit.co.uk</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);">
+        <p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="nodo.html">NODO App</a>
+        <a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a>
+        <a href="just-find.html">Just Find</a>
+        <a href="books.html">All Books</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}
+
+  // Slideshow
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide:not(.slide-dots)');
+  const dots = document.querySelectorAll('.slide-dot');
+  function goSlide(n){
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+  setInterval(()=>goSlide((currentSlide+1)%slides.length), 4000);
+</script>
+</body>
+</html>

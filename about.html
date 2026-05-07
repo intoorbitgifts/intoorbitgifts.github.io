@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Into Orbit</title>
+  <meta name="description" content="Into Orbit is an independent UK publisher of puzzle books and mobile games.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .page-hero { padding:96px 0 72px; border-bottom:1px solid var(--rule); }
+    .page-hero h1 { font-size:clamp(48px,6vw,80px); }
+    .page-hero .lede { margin-top:24px; }
+    .about-split { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:96px 0; border-bottom:1px solid var(--rule); }
+    .about-split .img-placeholder { width:100%; aspect-ratio:4/3; border-radius:12px; }
+    .about-text { display:flex; flex-direction:column; gap:24px; }
+    .about-text h2 { font-size:clamp(26px,3vw,36px); }
+    .about-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; }
+    .values { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:56px; }
+    .value-item h3 { font-size:20px; margin-bottom:12px; }
+    .value-item p { font-size:15px; color:var(--ink-mid); line-height:1.8; }
+    .value-num { font-family:var(--font-head); font-size:48px; font-weight:800; color:var(--magenta); opacity:0.25; line-height:1; margin-bottom:8px; }
+    .bulk-strip { background:var(--bg-off); border-radius:12px; padding:40px 48px; margin:96px 0; display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .bulk-strip h3 { font-size:22px; margin-bottom:8px; }
+    .bulk-strip p { font-size:15px; color:var(--ink-mid); }
+    @media(max-width:768px){
+      .about-split{grid-template-columns:1fr;}
+      .values-grid{grid-template-columns:1fr;}
+      .bulk-strip{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html">Books</a><a href="apps.html">Apps</a>
+      <a href="about.html" class="active">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">About Into Orbit</p>
+    <h1>Small studio.<br>Deliberate work.</h1>
+    <p class="lede">Into Orbit is an independent publisher of puzzle books and digital games — built on the belief that well-made things are worth making.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container about-split">
+    <img src="images/about-studio.png" alt="Into Orbit studio" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div class="about-text">
+      <h2>Independent by choice</h2>
+      <p>Into Orbit was founded to create the kind of products that feel considered — where the rules are clear, the design is accessible, and the experience is worth returning to.</p>
+      <p>Working independently means every decision is intentional. There are no committees, no trend-chasing, and no compromise on quality. Just ideas that are worth executing, executed properly.</p>
+      <p>Our work spans mobile puzzle games and puzzle books. Different formats, same principles: restraint, clarity, and genuine care for the people using them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <p class="eyebrow">How we work</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">What we believe in</h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-num">01</div>
+        <h3>Simplicity first</h3>
+        <p>The best products are the ones that don't need explaining. We strip away everything unnecessary until only the good stuff remains.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">02</div>
+        <h3>Designed to last</h3>
+        <p>We're not interested in one-time experiences. Everything we make is built to be returned to — daily puzzles, books you pick up again, games that grow with you.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-num">03</div>
+        <h3>Accessible always</h3>
+        <p>Our products are made for everyone — not just people who consider themselves "gamers" or "puzzle people". Clear design and broad appeal are never at odds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="bulk-strip">
+      <div>
+        <h3>Bulk orders</h3>
+        <p>Looking to order multiple copies of any of our books for an event, school, or business? Get in touch and we'll help with pricing and logistics.</p>
+      </div>
+      <a href="mailto:hello@intoorbit.co.uk" class="btn btn-outline">hello@intoorbit.co.uk</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>Products</h4><a href="nodo.html">NODO App</a><a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

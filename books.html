@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books — Into Orbit</title>
+  <meta name="description" content="Puzzle books from Into Orbit Publishing. Browse the Just Find personalised word search series and NODO puzzle books.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .page-hero { padding:96px 0 72px; border-bottom:1px solid var(--rule); }
+    .page-hero h1 { font-size:clamp(48px,6vw,80px); }
+    .page-hero .lede { margin-top:24px; }
+    .book-series { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .series-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; }
+    .series-header h2 { font-size:clamp(28px,3vw,40px); }
+    .jf-feature { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .jf-feature .img-placeholder { aspect-ratio:3/4; border-radius:12px; width:100%; }
+    .jf-feature-text { display:flex; flex-direction:column; gap:24px; }
+    .jf-feature-text h2 { font-size:clamp(28px,3vw,44px); }
+    .jf-feature-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; }
+    .book-list { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:56px; }
+    .book-item { display:flex; flex-direction:column; gap:12px; }
+    .book-item .img-placeholder { aspect-ratio:3/4; border-radius:8px; font-size:12px; }
+    .book-item h4 { font-size:16px; font-weight:700; }
+    .book-item p { font-size:13px; color:var(--ink-light); }
+    .book-item a { font-family:var(--font-head); font-size:13px; font-weight:600; color:var(--magenta); }
+    .bulk-strip { background:var(--bg-off); border-radius:12px; padding:40px 48px; margin-top:64px; display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .bulk-strip h3 { font-size:22px; margin-bottom:8px; }
+    .bulk-strip p { font-size:15px; color:var(--ink-mid); }
+    @media(max-width:900px){
+      .jf-feature{grid-template-columns:1fr;}
+      .jf-feature .img-placeholder{aspect-ratio:3/2;}
+      .book-list{grid-template-columns:repeat(2,1fr);}
+      .bulk-strip{flex-direction:column;align-items:flex-start;}
+    }
+    @media(max-width:500px){
+      .book-list{grid-template-columns:1fr 1fr;}
+      .series-header{flex-direction:column;align-items:flex-start;gap:16px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html" class="active">Books</a><a href="apps.html">Apps</a>
+      <a href="about.html">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Books</p>
+    <h1>Puzzles in print</h1>
+    <p class="lede">From personalised word search gifts to themed NODO puzzle books — all available on Amazon.</p>
+  </div>
+</section>
+
+<!-- JUST FIND -->
+<section class="book-series">
+  <div class="container">
+    <div class="series-header">
+      <div>
+        <p class="eyebrow">Series · Personalised Word Search</p>
+        <h2>The Just Find Series</h2>
+      </div>
+      <a href="just-find.html" class="btn btn-outline" style="font-size:14px;padding:10px 22px;">Find out more →</a>
+    </div>
+    <div class="jf-feature">
+      <img src="images/jf-feature.png" alt="Just Find book" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div class="jf-feature-text">
+        <h2>Word search. Personalised.</h2>
+        <p>The Just Find series is built around a simple idea: a word search book that feels like it was made for one person specifically. Each edition is built around a first name — with themed puzzles, a personalised cover, and hundreds of hidden words to find.</p>
+        <p>With hundreds of name editions available and new ones added regularly, Just Find is the kind of gift that takes thirty seconds to choose and lands every time.</p>
+        <a href="https://www.amazon.co.uk/dp/B0FLPRWV8V?binding=paperback&ref=dbs_dp_rwt_sb_pc_tpbk" target="_blank" class="btn btn-primary">Find your edition on Amazon</a>
+      </div>
+    </div>
+    <div class="book-list">
+      <div class="book-item">
+        <img src="images/jf-sample-1.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>Just Find — Henry</h4>
+        <p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-HENRY-Personalised-enthusiasts/dp/B0FXRJ76D9/ref=sr_1_1?crid=1ZV1B649RDU3W&dib=eyJ2IjoiMSJ9.JffLlZtoh6_cOCFApcMkRKq_PBROAtLV3dK5ZYZFBMm0yqO2Ib_e3d-3X0rScdponQDTzSXJ2hyqboZD2sI62JnFs3x3AS6OQ1ixUfCsMug.2MEySP9cNMNAmQTfFCYxOim8oBg--EGW6ZC1abLZCxk&dib_tag=se&keywords=just+find+henry+wordsearch&qid=1778144963&s=books&sprefix=just+find+henry+wordsearch%2Cstripbooks%2C91&sr=1-1" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/jf-sample-2.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>Just Find — Lyla</h4>
+        <p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-LYLA-Personalised-enthusiasts/dp/B0GT8NMB7M/ref=sr_1_1?crid=36Q7CIIOSPPEH&dib=eyJ2IjoiMSJ9.G7ndG0h7Dp_1Zy_DgVyiYp3MMNIJIzkhLzSYouE4erVoV10vg-BFByZFXr1SUj1C-an4orz6oI5saEsdLdvAjN-AZJXI7H9P0ARItNOE_Qk4OjwNhOLxAGPr9x6fh27snE0mxRjXAPfAh8fkp0vrkWAWslraD0FTnOniO_psZxNSVP8xa6SvCYkOvqaRTFhvNfkdL245e-VHJUg0VIa5HpqBpv-miUQAhyTOlR3aOh0.1QxGe5a9b6-4VdgKZcCFapBufLiXy5_ZlFyQ4itZgkc&dib_tag=se&keywords=just+find+lyla+wordsearch&qid=1778144921&s=books&sprefix=just+find+lyla+wordsearch%2Cstripbooks%2C95&sr=1-1" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/jf-sample-3.png" alt="Just Find edition" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>Just Find — Noah</h4>
+        <p>Personalised word search</p>
+        <a href="https://www.amazon.co.uk/Just-Find-NOAH-Personalised-enthusiasts/dp/B0GTTB9XGM/ref=sr_1_1?crid=3U2IGYV9A2PEQ&dib=eyJ2IjoiMSJ9._iqh-yYseRh12mBNoDFAQDpkpzVnYnG4KLGQytbSuW17cYUbu6AuVJ9A0yUmlsUI7FniEVO6a16a901qiriYIiFHht8LoEgummkovsAb_PdeHERtgFCQylw7W4b3AyTlTlpaf41lbabFH-QNlXUXdQd7Jk-DjrbctgNQe0fsxU-BNuMWCXUqIJldrLWBbJFXgy5Jo_uW7gTyJiz5mJ9Q23y2u-DF8ybGu2nsh7zbjpg.jK-SuuvoSSNLLkQ0DJyUCsUaqo4XF9oDbrDumsY_LPA&dib_tag=se&keywords=just+find+noah+wordsearch&qid=1778144870&s=books&sprefix=just+find+noah+aowrsearch%2Cstripbooks%2C102&sr=1-1" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/jf-sample-more.png" alt="More editions" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>Hundreds more</h4>
+        <p>New names added regularly</p>
+        <a href="https://www.amazon.co.uk/dp/B0FLPRWV8V?binding=paperback&ref=dbs_dp_rwt_sb_pc_tpbk" target="_blank">Browse all →</a>
+      </div>
+    </div>
+    <div class="bulk-strip">
+      <div>
+        <h3>Bulk orders — Just Find</h3>
+        <p>Need multiple copies for an event, school, or business? Get in touch for bulk pricing.</p>
+      </div>
+      <a href="mailto:hello@intoorbit.co.uk" class="btn btn-outline">hello@intoorbit.co.uk</a>
+    </div>
+  </div>
+</section>
+
+<!-- NODO BOOKS -->
+<section class="book-series">
+  <div class="container">
+    <div class="series-header">
+      <div>
+        <p class="eyebrow">Series · NODO Puzzle Books</p>
+        <h2>NODO Puzzle Books</h2>
+      </div>
+      <a href="nodo-books.html" class="btn btn-outline" style="font-size:14px;padding:10px 22px;">Find out more →</a>
+    </div>
+    <div class="jf-feature">
+      <div class="jf-feature-text">
+        <h2>The NODO format, in print</h2>
+        <p>The same sharp, satisfying word-finding experience from the app — brought to life on paper. Ten themed editions, each with 100 puzzles across 5 chapters. Grid sizes increase as you progress through each book.</p>
+        <p>Every letter in each grid belongs to the hidden word. No filler, no noise — just pure puzzle.</p>
+        <a href="https://www.amazon.co.uk/dp/B0GZQ33TX8?binding=paperback&ref=dbs_dp_rwt_sb_pc_tpbk" target="_blank" class="btn btn-primary">Browse all editions on Amazon</a>
+ 
+ </div>
+      <div class="nodo-books-image"><img src="images/nodo-books-feature.png" alt="NODO puzzle books" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    </div>
+    <div class="book-list">
+      <div class="book-item">
+        <img src="images/nodo-book-nature.png" alt="NODO Nature" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>NODO — Nature</h4>
+        <p>100 nature-themed puzzles</p>
+        <a href="https://www.amazon.co.uk/gp/product/B0GZP5PVN6?ref_=dbs_m_mng_rwt_calw_tpbk_5&storeType=ebooks" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/nodo-book-space.png" alt="NODO Space" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>NODO — Space</h4>
+        <p>100 space-themed puzzles</p>
+        <a href="https://www.amazon.co.uk/gp/product/B0GZP5PVN6?ref_=dbs_m_mng_rwt_calw_tpbk_5&storeType=ebooks" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/nodo-book-ocean.png" alt="NODO Ocean" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>NODO — Ocean</h4>
+        <p>100 ocean-themed puzzles</p>
+        <a href="https://www.amazon.co.uk/gp/product/B0GZPNXNTW?ref_=dbs_m_mng_rwt_calw_tpbk_3&storeType=ebooks" target="_blank">View on Amazon →</a>
+      </div>
+      <div class="book-item">
+        <img src="images/nodo-books-more.png" alt="More NODO editions" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <h4>10 themes in total</h4>
+        <p>Food, Science, Cities &amp; more</p>
+        <a href="https://www.amazon.co.uk/dp/B0GZQ33TX8?binding=paperback&ref=dbs_dp_rwt_sb_pc_tpbk" target="_blank">Browse all →</a>
+      </div>
+    </div>
+    <div class="bulk-strip">
+      <div>
+        <h3>Bulk orders — NODO Books</h3>
+        <p>Ordering multiple copies for a school, event, or business? We'd love to help.</p>
+      </div>
+      <a href="mailto:hello@intoorbit.co.uk" class="btn btn-outline">hello@intoorbit.co.uk</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>Products</h4><a href="nodo.html">NODO App</a><a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

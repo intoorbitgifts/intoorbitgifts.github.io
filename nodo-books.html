@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NODO Puzzle Books — Into Orbit</title>
+  <meta name="description" content="NODO puzzle books — the same satisfying word-finding format from the app, in print. Ten themed editions available on Amazon.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ── Dark hero matching NODO app page ── */
+    .nb-hero { background:var(--bg-dark); color:#fff; padding:100px 0 80px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .nb-hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .nb-hero-text .eyebrow { color:rgba(163,221,232,0.7); margin-bottom:20px; }
+    .nb-hero-text h1 { font-size:clamp(40px,5vw,64px); color:#fff; margin-bottom:24px; }
+    .nb-hero-text p { font-size:18px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:36px; max-width:480px; }
+    .nb-hero-img { border-radius:12px; overflow:hidden; aspect-ratio:4/3; background:#1E2A35; }
+    .nb-hero-img .img-placeholder { width:100%; height:100%; border-radius:0; border:none; background:#1E2A35; color:rgba(255,255,255,0.2); }
+
+    /* ── What's inside ── */
+    .what-inside { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .what-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:56px; }
+    .what-item { display:flex; flex-direction:column; gap:14px; }
+    .what-icon { width:48px; height:48px; background:rgba(229,0,125,0.08); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; }
+    .what-item h3 { font-size:19px; }
+    .what-item p { font-size:15px; color:var(--ink-mid); line-height:1.75; }
+
+    /* ── Editions grid ── */
+    .editions-section { padding:96px 0; border-bottom:1px solid var(--rule); background:var(--bg-off); }
+    .editions-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:48px; }
+    .edition-card { background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; border:1px solid rgba(0,0,0,0.06); transition:box-shadow 0.2s; }
+    .edition-card:hover { box-shadow:0 8px 32px rgba(0,0,0,0.12); }
+    .edition-img { aspect-ratio:3/4; overflow:hidden; }
+    .edition-img .img-placeholder { width:100%; height:100%; border-radius:0; border:none; font-size:11px; }
+    .edition-info { padding:14px; display:flex; flex-direction:column; gap:6px; }
+    .edition-info h4 { font-size:14px; font-weight:700; margin:0; }
+    .edition-info p { font-size:12px; color:var(--ink-light); margin:0; }
+    .edition-info a { font-family:var(--font-head); font-size:12px; font-weight:600; color:var(--magenta); }
+
+    /* ── Feature split ── */
+    .feature-split { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .feature-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .feature-text h2 { font-size:clamp(28px,3vw,40px); margin-bottom:20px; }
+    .feature-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; margin-bottom:16px; }
+    .feature-img { border-radius:12px; overflow:hidden; aspect-ratio:4/3; }
+    .feature-img .img-placeholder { width:100%; height:100%; border-radius:0; border:none; }
+
+    /* ── Bulk ── */
+    .bulk-section { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .bulk-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .bulk-text h2 { font-size:clamp(28px,3vw,40px); margin-bottom:16px; }
+    .bulk-text p { font-size:17px; color:var(--ink-mid); line-height:1.8; margin-bottom:16px; }
+
+    /* ── FAQ ── */
+    .faq-section { padding:96px 0; }
+    .faq-list { max-width:720px; margin-top:48px; }
+    .faq-item { border-bottom:1px solid var(--rule); }
+    .faq-q { width:100%; background:none; border:none; text-align:left; padding:24px 0; font-family:var(--font-head); font-size:17px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .faq-q:hover { color:var(--magenta); }
+    .faq-a { padding:0 0 24px; font-size:16px; color:var(--ink-mid); line-height:1.8; display:none; }
+    .faq-a.open { display:block; }
+
+    @media(max-width:900px){
+      .nb-hero-inner{grid-template-columns:1fr;}
+      .nb-hero-img{display:none;}
+      .what-grid{grid-template-columns:1fr 1fr;}
+      .editions-grid{grid-template-columns:repeat(2,1fr);}
+      .feature-inner{grid-template-columns:1fr;}
+      .bulk-inner{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      .what-grid{grid-template-columns:1fr;}
+      .editions-grid{grid-template-columns:repeat(2,1fr);}
+    }
+  </style>
+</head>
+<body>
+
+<header style="background:rgba(17,17,17,0.96);">
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit" style="filter:brightness(0) invert(1);"></a>
+    <nav class="nav-links" style="color:#fff;">
+      <a href="books.html" style="color:rgba(255,255,255,0.7);" class="active">Books</a>
+      <a href="apps.html" style="color:rgba(255,255,255,0.7);">Apps</a>
+      <a href="about.html" style="color:rgba(255,255,255,0.7);">About</a>
+      <a href="contact.html" style="color:rgba(255,255,255,0.7);">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" style="filter:invert(1);"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" style="background:#111;">
+    <a href="books.html" style="color:#fff;">Books</a><a href="apps.html" style="color:#fff;">Apps</a>
+    <a href="about.html" style="color:#fff;">About</a><a href="contact.html" style="color:#fff;">Contact</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="nb-hero">
+  <div class="container">
+    <div class="nb-hero-inner">
+      <div class="nb-hero-text">
+        <p class="eyebrow">Books · NODO Puzzle Books</p>
+        <h1>The NODO format,<br>in print.</h1>
+        <p>Every letter in the grid belongs to the hidden word. The same rule that makes the app satisfying applies to every puzzle in every book. Ten themed editions — available now on Amazon.</p>
+        <a href="https://www.amazon.co.uk/s?i=stripbooks&rh=p_27%3AInto%2BOrbit%2BPublishing" target="_blank" rel="noopener" class="btn btn-primary">Browse on Amazon</a>
+      </div>
+      <div class="nb-hero-img">
+        <img src="images/nodo-books-hero.png" alt="NODO Books" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="what-inside">
+  <div class="container">
+    <p class="eyebrow">What's inside</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Built around the same rules</h2>
+    <div class="what-grid">
+      <div class="what-item">
+        <div class="what-icon">🔤</div>
+        <h3>Only word letters in every grid</h3>
+        <p>Every letter in every grid belongs to the hidden word — the same rule that makes NODO different from every other word puzzle.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">📖</div>
+        <h3>100 puzzles per book</h3>
+        <p>Five chapters of 20 puzzles each. Grid sizes increase chapter by chapter — starting manageable, finishing challenging.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">🎨</div>
+        <h3>10 themed editions</h3>
+        <p>Nature, Space, Ocean, Food, Science, Cities, Music, Sport, Abstract, and Mythology — matching all 10 Pressure Mode seasons from the app.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">✅</div>
+        <h3>Answers included</h3>
+        <p>Full answers section at the back of every book. No frustration, no dead ends.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">📦</div>
+        <h3>Available on Amazon</h3>
+        <p>All editions available on Amazon with standard delivery options. Great as a gift or for yourself.</p>
+      </div>
+      <div class="what-item">
+        <div class="what-icon">📱</div>
+        <h3>Companion to the app</h3>
+        <p>Love NODO on your phone? The books use the same format and rules — a natural companion for offline play.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITIONS -->
+<section class="editions-section">
+  <div class="container">
+    <p class="eyebrow">All editions</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Ten themes to collect</h2>
+    <p class="lede" style="margin-top:16px;">Each edition is themed to match its Pressure Mode season — same words, same feel, in print.</p>
+    <div class="editions-grid">
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-nature.png" alt="NODO Nature" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🌿</div>
+          <h4>Nature</h4><p>100 nature-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZP5PVN6?ref_=dbs_m_mng_rwt_calw_tpbk_5&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-space.png" alt="NODO Space" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🚀</div>
+          <h4>Space</h4><p>100 space-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZP5PVN6?ref_=dbs_m_mng_rwt_calw_tpbk_5&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-ocean.png" alt="NODO Ocean" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🌊</div>
+          <h4>Ocean</h4><p>100 ocean-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPNXNTW?ref_=dbs_m_mng_rwt_calw_tpbk_3&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-food.png" alt="NODO Food" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🍽️</div>
+          <h4>Food</h4><p>100 food-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPSPSRK?ref_=dbs_m_mng_rwt_calw_tpbk_2&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-science.png" alt="NODO Science" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🔬</div>
+          <h4>Science</h4><p>100 science-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPJTGTC?ref_=dbs_m_mng_rwt_calw_tpbk_0&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-cities.png" alt="NODO Cities" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🏙️</div>
+          <h4>Cities</h4><p>100 city-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPJTGTC?ref_=dbs_m_mng_rwt_calw_tpbk_0&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-music.png" alt="NODO Music" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🎵</div>
+          <h4>Music</h4><p>100 music-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPJTGTC?ref_=dbs_m_mng_rwt_calw_tpbk_0&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-sport.png" alt="NODO Sport" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">⚽</div>
+          <h4>Sport</h4><p>100 sport-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPJTGTC?ref_=dbs_m_mng_rwt_calw_tpbk_0&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-abstract.png" alt="NODO Abstract" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">✨</div>
+          <h4>Abstract</h4><p>100 abstract-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPW1SYF?ref_=dbs_m_mng_rwt_calw_tpbk_4&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+      <div class="edition-card">
+        <div class="edition-img"><img src="images/nodo-book-mythology.png" alt="NODO Mythology" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="edition-info">
+          <div style="font-size:20px;">🛡️</div>
+          <h4>Mythology</h4><p>100 mythology-themed puzzles</p>
+          <a href="https://www.amazon.co.uk/gp/product/B0GZPD5P5V?ref_=dbs_m_mng_rwt_calw_tpbk_1&storeType=ebooks" target="_blank">View on Amazon →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE SPLIT -->
+<section class="feature-split">
+  <div class="container">
+    <div class="feature-inner">
+      <div class="feature-img"><img src="images/nodo-book-spread.png" alt="NODO book open" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="feature-text">
+        <p class="eyebrow">The format</p>
+        <h2>Same rules. Paper format.</h2>
+        <p>Each puzzle presents a grid of letters — every single one belonging to the hidden word. No noise, no red herrings. The satisfaction of finding the path is identical whether you're on a phone screen or a printed page.</p>
+        <p>Five chapters per book means the difficulty climbs naturally. Chapter one is accessible for any solver. Chapter five is a genuine challenge.</p>
+        <a href="nodo.html" class="btn btn-outline">Download the app free →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BULK ORDERS -->
+<section class="bulk-section">
+  <div class="container">
+    <div class="bulk-inner">
+      <div class="bulk-text">
+        <p class="eyebrow">Bulk orders</p>
+        <h2>Ordering in volume?</h2>
+        <p>NODO puzzle books work well for schools, puzzle events, corporate gifts, and activity packs. If you're looking to order multiple copies — of any edition or a mix — get in touch and we'll help with pricing.</p>
+        <a href="mailto:hello@intoorbit.co.uk" class="btn btn-primary">hello@intoorbit.co.uk</a>
+   
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <p class="eyebrow">Questions</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many puzzles are in each book? <span>+</span></button>
+        <div class="faq-a">Each edition contains 100 puzzles across five chapters of 20 puzzles each. The grid size increases with each chapter, so the difficulty builds naturally as you progress.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the rule about letters in the grid? <span>+</span></button>
+        <div class="faq-a">Every letter in every grid belongs exclusively to the hidden word — there are no filler letters or decoys. This is the same rule that makes the NODO app different from every other word puzzle, and it applies to every single puzzle in the books.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are the books related to the app? <span>+</span></button>
+        <div class="faq-a">Yes — the ten book themes match the ten Pressure Mode seasons in the NODO app exactly. Nature, Space, Ocean, Food, Science, Cities, Music, Sport, Abstract, and Mythology. Same format, same rules, different medium.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I buy a copy? <span>+</span></button>
+        <div class="faq-a">All editions are available on Amazon. Click any edition above to view its listing, or search "NODO Into Orbit Publishing" on Amazon.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Are they suitable as gifts? <span>+</span></button>
+        <div class="faq-a">Absolutely. The books make a great gift for word puzzle fans of any age. The themed editions also mean there's something for most interests — whether that's space, music, sport, or mythology.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>NODO</h4><a href="nodo.html">NODO App</a><a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a><a href="#">Download Android</a></div>
+      <div class="footer-col"><h4>Books</h4><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}
+  function toggleFaq(btn){const a=btn.nextElementSibling;const isOpen=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(el=>{el.classList.remove('open');el.previousElementSibling.querySelector('span').textContent='+';});if(!isOpen){a.classList.add('open');btn.querySelector('span').textContent='−';}}
+</script>
+</body>
+</html>

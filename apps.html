@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps — Into Orbit</title>
+  <meta name="description" content="Mobile puzzle games from Into Orbit. Download NODO free on Android — the only word puzzle where every letter in the grid belongs to the hidden word.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .page-hero { padding:96px 0 72px; border-bottom:1px solid var(--rule); }
+    .page-hero h1 { font-size:clamp(48px,6vw,80px); }
+    .page-hero .lede { margin-top:24px; }
+    .app-feature { display:grid; grid-template-columns:1fr 1fr; gap:0; background:var(--bg-dark); border-radius:16px; overflow:hidden; margin:80px 0; }
+    .app-feature-text { padding:80px 64px; display:flex; flex-direction:column; gap:24px; justify-content:center; }
+    .app-feature-text .eyebrow { color:rgba(163,221,232,0.8); }
+    .app-feature-text h2 { font-size:clamp(28px,3.5vw,44px); color:#fff; }
+    .app-feature-text p { font-size:17px; color:rgba(255,255,255,0.65); line-height:1.7; }
+    .app-feature-img { background:#1E2A35; min-height:480px; display:flex; align-items:center; justify-content:center; }
+    .app-feature-img .img-placeholder { width:100%; height:100%; min-height:480px; background:#1E2A35; border:none; color:rgba(255,255,255,0.2); }
+    .app-badges { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:10px 18px; border-radius:100px; font-family:var(--font-head); font-size:14px; font-weight:500; transition:background 0.2s; }
+    .badge:hover { background:rgba(255,255,255,0.18); }
+    .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--rule); border-radius:12px; overflow:hidden; margin-bottom:96px; }
+    .feature-item { background:var(--bg); padding:36px 28px; }
+    .feature-item .icon { font-size:28px; margin-bottom:16px; }
+    .feature-item h3 { font-size:18px; margin-bottom:10px; }
+    .feature-item p { font-size:14px; color:var(--ink-mid); line-height:1.7; }
+    .screens-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:96px; }
+    .screen-item .img-placeholder { aspect-ratio:9/19; border-radius:20px; border:none; font-size:12px; }
+    .coming-soon { background:var(--bg-off); border-radius:12px; padding:64px; text-align:center; margin-bottom:96px; }
+    .coming-soon h2 { font-size:clamp(24px,3vw,36px); margin-bottom:16px; }
+    .coming-soon p { font-size:17px; color:var(--ink-mid); max-width:480px; margin:0 auto 32px; }
+    @media(max-width:900px){
+      .app-feature{grid-template-columns:1fr;}
+      .app-feature-img{min-height:260px;}
+      .features-grid{grid-template-columns:1fr 1fr;}
+      .screens-row{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:600px){
+      .app-feature-text{padding:48px 28px;}
+      .features-grid{grid-template-columns:1fr;}
+      .coming-soon{padding:40px 24px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit"></a>
+    <nav class="nav-links">
+      <a href="books.html">Books</a><a href="apps.html" class="active">Apps</a>
+      <a href="about.html">About</a><a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="books.html">Books</a><a href="apps.html">Apps</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Mobile Apps</p>
+    <h1>Games worth<br>coming back to</h1>
+    <p class="lede">One app. One daily puzzle. Free to download and built to last.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="app-feature">
+    <div class="app-feature-text">
+      <p class="eyebrow">Available now · Free · Android</p>
+      <h2>Every letter belongs to the word</h2>
+      <p>NODO is the only word puzzle where the grid contains exclusively letters from the hidden word — no noise, no decoys. Connect them in any direction to find the answer. One puzzle each day. Simple, fair, and satisfying.</p>
+      <p>Pressure Mode adds a timer and 50 levels across 10 themed seasons for when you want a real challenge. Eight colour themes to unlock through play. No ads.</p>
+      <div class="app-badges">
+        <a href="#" class="badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.97.2l13.5-11.97L14.2 8.6 3.18 23.76zm17.6-11.1a1.5 1.5 0 000-2.6L17.9 8.6l-3.82 3.4 3.82 3.4 2.88-1.74zM3.05.1a1.28 1.28 0 00-.74 1.1v21.6a1.28 1.28 0 00.74 1.1l.13.06 12.1-12.1v-.28L3.18.04 3.05.1z"/></svg>
+          Google Play — Free
+        </a>
+      </div>
+      <div><a href="nodo.html" class="btn btn-primary">Full NODO details →</a></div>
+    </div>
+    <div class="app-feature-img"><img src="images/nodo-feature.png" alt="NODO gameplay" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" style="margin-bottom:16px;">What's inside NODO</p>
+    <h2 style="font-size:clamp(24px,3vw,36px);margin-bottom:40px;">Everything you need, nothing you don't</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="icon">🔤</div>
+        <h3>Only word letters in the grid</h3>
+        <p>Every tile in the grid is a letter from the hidden word. No red herrings, no filler — which makes it genuinely harder than it looks.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📅</div>
+        <h3>Daily Puzzle</h3>
+        <p>A new word hidden in a fresh grid every single day. One chance — that's what makes it worth it.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🔥</div>
+        <h3>Pressure Mode</h3>
+        <p>Race the clock across 50 levels and 10 themed seasons. Speed and combo bonuses reward fast, consistent play.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📅</div>
+        <h3>Past Puzzles</h3>
+        <p>Missed a day? Play any previous daily puzzle whenever you like.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">🎨</div>
+        <h3>8 Colour Themes</h3>
+        <p>Classic and Night are free from the start. Unlock six more through daily play — no purchase needed for any theme.</p>
+      </div>
+      <div class="feature-item">
+        <div class="icon">📊</div>
+        <h3>Stats &amp; Streaks</h3>
+        <p>Track your win rate, longest streaks, honours earned, and Pressure Mode season records.</p>
+      </div>
+    </div>
+
+    <div class="screens-row">
+      <div class="screen-item"><img src="images/screen-start.png" alt="NODO start screen" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="screen-item"><img src="images/screen-daily.png" alt="Daily puzzle" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="screen-item"><img src="images/screen-pressure.png" alt="Pressure mode" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="screen-item"><img src="images/screen-stats.png" alt="Stats screen" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    </div>
+
+    <div class="coming-soon">
+      <p class="eyebrow">What's next</p>
+      <h2>More apps in development</h2>
+      <p>NODO is just the beginning. New games are in the works — follow along or get in touch if you'd like to hear about them first.</p>
+      <a href="contact.html" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>Products</h4><a href="nodo.html">NODO App</a><a href="nodo-books.html">NODO Books</a>
+        <a href="answers.html">Past Answers</a><a href="just-find.html">Just Find</a><a href="books.html">All Books</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

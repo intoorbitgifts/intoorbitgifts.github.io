@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NODO — Every Letter Belongs to the Word</title>
+  <meta name="description" content="NODO is a free daily word puzzle app. Every letter in the grid belongs to the hidden word — no noise, no red herrings. Find the word every day.">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    .nodo-hero { background:var(--bg-dark); color:#fff; padding:100px 0 80px; overflow:hidden; }
+    .nodo-hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .nodo-hero-text { padding-bottom:0; }
+    .nodo-hero-text .eyebrow { color:rgba(163,221,232,0.7); margin-bottom:20px; }
+    .nodo-hero-text h1 { font-size:clamp(40px,5vw,68px); color:#fff; margin-bottom:24px; }
+    .nodo-hero-text p { font-size:18px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:40px; max-width:480px; }
+    .nodo-hero-badges { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
+    .badge-dl { display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:12px 22px; border-radius:100px; font-family:var(--font-head); font-size:14px; font-weight:600; transition:background 0.2s; }
+    .badge-dl:hover { background:rgba(255,255,255,0.18); }
+    .nodo-hero-screens { align-self:center; border-radius:12px; overflow:hidden; }
+    .nodo-hero-screens .img-placeholder { width:100%; aspect-ratio:4/3; background:#1a2535; border:none; color:rgba(255,255,255,0.2); border-radius:12px 12px 0 0; }
+
+    .how-to { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; margin-top:56px; }
+    .how-item { display:flex; flex-direction:column; gap:16px; }
+    .how-num { font-family:var(--font-head); font-size:48px; font-weight:800; color:var(--magenta); line-height:1; }
+    .how-item h3 { font-size:20px; }
+    .how-item p { font-size:15px; color:var(--ink-mid); line-height:1.7; }
+
+    .modes { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .modes-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:56px; }
+    .mode-card { border-radius:12px; overflow:hidden; }
+    .mode-card-dark { background:var(--bg-dark); color:#fff; padding:48px 40px; }
+    .mode-card .eyebrow { margin-bottom:16px; }
+    .mode-card-dark .eyebrow { color:rgba(163,221,232,0.7); }
+    .mode-card h3 { font-size:28px; margin-bottom:16px; }
+    .mode-card p { font-size:16px; line-height:1.7; }
+    .mode-card-dark p { color:rgba(255,255,255,0.65); }
+    .mode-features { list-style:none; margin-top:20px; display:flex; flex-direction:column; gap:10px; }
+    .mode-features li { font-size:14px; display:flex; align-items:center; gap:10px; }
+    .mode-features li::before { content:''; width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+    .mode-dark-feat li { color:rgba(255,255,255,0.6); }
+    .mode-dark-feat li::before { background:rgba(163,221,232,0.7); }
+    .mode-red-feat li { color:rgba(255,255,255,0.7); }
+    .mode-red-feat li::before { background:rgba(255,255,255,0.5); }
+
+    .seasons-section { padding:96px 0; border-bottom:1px solid var(--rule); background:var(--bg-off); }
+    .seasons-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:48px; }
+    .season-card { border-radius:12px; padding:20px 16px; display:flex; flex-direction:column; gap:8px; border:1px solid rgba(0,0,0,0.06); background:#fff; }
+    .season-icon { font-size:24px; margin-bottom:4px; }
+    .season-card h4 { font-size:14px; font-weight:700; margin:0; }
+    .season-card p { font-size:12px; color:var(--ink-light); margin:0; }
+    .season-free { border:2px solid var(--magenta); }
+    .season-tag { font-family:var(--font-head); font-size:10px; font-weight:700; padding:2px 8px; border-radius:100px; width:fit-content; }
+    .tag-free { background:var(--magenta); color:#fff; }
+    .tag-paid { background:#f0f0f0; color:#888; }
+
+    .themes-section { padding:96px 0; border-bottom:1px solid var(--rule); }
+    .themes-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:48px; }
+    .theme-swatch { border-radius:12px; padding:24px 20px; display:flex; flex-direction:column; gap:8px; }
+    .theme-swatch .dots { display:flex; gap:6px; margin-bottom:4px; }
+    .theme-swatch .dot { width:12px; height:12px; border-radius:50%; }
+    .theme-swatch h4 { font-size:15px; font-weight:700; color:#fff; }
+    .theme-swatch p { font-size:12px; color:rgba(255,255,255,0.5); }
+    .theme-locked { font-family:var(--font-head); font-size:11px; font-weight:600; color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.08); padding:3px 8px; border-radius:100px; width:fit-content; }
+
+    .faq { padding:96px 0; }
+    .faq-list { max-width:720px; margin-top:48px; }
+    .faq-item { border-bottom:1px solid var(--rule); }
+    .faq-q { width:100%; background:none; border:none; text-align:left; padding:24px 0; font-family:var(--font-head); font-size:18px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .faq-q:hover { color:var(--magenta); }
+    .faq-a { padding:0 0 24px; font-size:16px; color:var(--ink-mid); line-height:1.8; display:none; }
+    .faq-a.open { display:block; }
+
+    @media(max-width:900px){
+      .nodo-hero-inner{grid-template-columns:1fr;}
+      .nodo-hero-screens{display:none;}
+      .how-grid{grid-template-columns:1fr 1fr;}
+      .modes-grid{grid-template-columns:1fr;}
+      .seasons-grid{grid-template-columns:repeat(2,1fr);}
+      .themes-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:600px){
+      .how-grid{grid-template-columns:1fr;}
+      .seasons-grid{grid-template-columns:repeat(2,1fr);}
+    }
+  </style>
+</head>
+<body>
+
+<header style="background:rgba(17,17,17,0.96);">
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Into Orbit" style="filter:brightness(0) invert(1);"></a>
+    <nav class="nav-links" style="color:#fff;">
+      <a href="books.html" style="color:rgba(255,255,255,0.7);">Books</a>
+      <a href="apps.html" style="color:rgba(255,255,255,0.7);" class="active">Apps</a>
+      <a href="about.html" style="color:rgba(255,255,255,0.7);">About</a>
+      <a href="contact.html" style="color:rgba(255,255,255,0.7);">Contact</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" style="filter:invert(1);"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" style="background:#111;">
+    <a href="books.html" style="color:#fff;">Books</a><a href="apps.html" style="color:#fff;">Apps</a>
+    <a href="about.html" style="color:#fff;">About</a><a href="contact.html" style="color:#fff;">Contact</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="nodo-hero">
+  <div class="container">
+    <div class="nodo-hero-inner">
+      <div class="nodo-hero-text">
+        <p class="eyebrow">Free · Android</p>
+        <p class="eyebrow" style="color:rgba(163,221,232,0.5);font-size:11px;letter-spacing:0.12em;margin-top:-12px;margin-bottom:20px;">· Wordsearch, with a Twist and a Turn ·</p>
+        <h1>Every letter<br>belongs to<br>the word.</h1>
+        <p>NODO is the only word puzzle where the grid contains exclusively letters from the hidden word — no noise, no red herrings. Connect them, keep your streak alive, and find the word every day.</p>
+        <div class="nodo-hero-badges">
+          <a href="#" class="badge-dl">⬇ Google Play — Free</a>
+        </div>
+        <a href="contact.html" class="btn btn-outline-white" style="font-size:14px;padding:10px 20px;">Support &amp; feedback</a>
+      </div>
+      <div class="nodo-hero-screens">
+        <img src="images/nodo-hero.png" alt="NODO app screenshots" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;border-radius:12px;">
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO PLAY -->
+<section class="how-to">
+  <div class="container">
+    <p class="eyebrow">How it works</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Three steps. That's it.</h2>
+    <div class="how-grid">
+      <div class="how-item">
+        <div class="how-num">01</div>
+        <h3>Open the grid</h3>
+        <p>Every day a new grid appears containing a hidden word. Every tile in that grid is a letter from that word — and only that word. No red herrings.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-num">02</div>
+        <h3>Connect the letters</h3>
+        <p>Tap adjacent tiles to spell out the hidden word in any direction — horizontal, vertical, or diagonal. Tap back to undo a letter.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-num">03</div>
+        <h3>Come back tomorrow</h3>
+        <p>One puzzle per day. Keep your streak alive. Use your daily hint if you're stuck — but it'll cost you your no-hint streak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODES -->
+<section class="modes">
+  <div class="container">
+    <p class="eyebrow">Game modes</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Two ways to play</h2>
+    <div class="modes-grid">
+      <div class="mode-card mode-card-dark">
+        <p class="eyebrow">Daily</p>
+        <h3>The daily puzzle</h3>
+        <p>One word hidden in a fresh grid every day. Simple, satisfying, and over in under a minute if you're sharp.</p>
+        <ul class="mode-features mode-dark-feat">
+          <li>New puzzle every day</li>
+          <li>Streak tracking and honours</li>
+          <li>One hint per puzzle</li>
+          <li>Past puzzles to catch up on</li>
+          <li>8 colour themes to unlock</li>
+        </ul>
+      </div>
+      <div class="mode-card" style="background:#BC181A;padding:48px 40px;">
+        <p class="eyebrow" style="color:rgba(255,255,255,0.6);">Pressure Mode</p>
+        <h3 style="color:#fff;">Race the clock</h3>
+        <p style="color:rgba(255,255,255,0.7);">50 levels, one timer. Find each word before time runs out — each correct answer earns bonus seconds. Speed and combo bonuses push your score higher.</p>
+        <ul class="mode-features mode-red-feat">
+          <li>50 levels per season</li>
+          <li>Speed bonus for fast solves</li>
+          <li>Combo bonus for back-to-back words</li>
+          <li>10 themed seasons available</li>
+          <li>Season 1 free — seasons 2–10 unlockable</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESSURE SEASONS -->
+<section class="seasons-section">
+  <div class="container">
+    <p class="eyebrow">Pressure seasons</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Ten themed seasons</h2>
+    <p class="lede" style="margin-top:16px;max-width:560px;">Each season is a fresh 50-level challenge with its own word theme. Season 1 is free. Unlock all nine remaining seasons with a single one-time purchase for £1.49.</p>
+    <div class="seasons-grid">
+      <div class="season-card season-free">
+        <div class="season-icon">🌿</div>
+        <h4>Season 1</h4><p>Nature</p>
+        <span class="season-tag tag-free">Free</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🚀</div>
+        <h4>Season 2</h4><p>Space</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🌊</div>
+        <h4>Season 3</h4><p>Ocean</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🍽️</div>
+        <h4>Season 4</h4><p>Food</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🔬</div>
+        <h4>Season 5</h4><p>Science</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🏙️</div>
+        <h4>Season 6</h4><p>Cities</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🎵</div>
+        <h4>Season 7</h4><p>Music</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">⚽</div>
+        <h4>Season 8</h4><p>Sport</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">✨</div>
+        <h4>Season 9</h4><p>Abstract</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🛡️</div>
+        <h4>Season 10</h4><p>Mythology</p>
+        <span class="season-tag tag-paid">Unlock for £1.49</span>
+      </div>
+    </div>
+    <p style="margin-top:32px;font-size:15px;color:var(--ink-light);">One purchase unlocks all seasons — current and future. No subscription.</p>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes-section">
+  <div class="container">
+    <p class="eyebrow">Colour themes</p>
+    <h2 style="font-size:clamp(24px,3vw,36px);">Ten themes to unlock</h2>
+    <p class="lede" style="margin-top:16px;">Classic and Night are yours from the start. Unlock most themes through daily play. The Obsidian theme unlocks with your Pressure seasons purchase — and the exclusive Pressure theme unlocks after completing 10 seasons.</p>
+    <div class="themes-grid">
+      <div class="theme-swatch" style="background:#3A3D4D;">
+        <div class="dots"><div class="dot" style="background:#a3dde8;"></div><div class="dot" style="background:#00A651;"></div><div class="dot" style="background:#2E3040;"></div></div>
+        <h4>Classic</h4><p>Free</p>
+      </div>
+      <div class="theme-swatch" style="background:#1C1C24;">
+        <div class="dots"><div class="dot" style="background:#9B8FD4;"></div><div class="dot" style="background:#4A7A6D;"></div><div class="dot" style="background:#2A2A36;"></div></div>
+        <h4>Night</h4><p>Free</p>
+      </div>
+      <div class="theme-swatch" style="background:#4A3D52;">
+        <div class="dots"><div class="dot" style="background:#C9A87C;"></div><div class="dot" style="background:#5A7A6A;"></div><div class="dot" style="background:#372D3E;"></div></div>
+        <h4>Dusk</h4><span class="theme-locked">10 puzzles</span>
+      </div>
+      <div class="theme-swatch" style="background:#3A4A3D;">
+        <div class="dots"><div class="dot" style="background:#8FBC7A;"></div><div class="dot" style="background:#4A7A5E;"></div><div class="dot" style="background:#2B3A2D;"></div></div>
+        <h4>Moss</h4><span class="theme-locked">25 puzzles</span>
+      </div>
+      <div class="theme-swatch" style="background:#2A1F1A;">
+        <div class="dots"><div class="dot" style="background:#E8823A;"></div><div class="dot" style="background:#8A6A3A;"></div><div class="dot" style="background:#3A2A20;"></div></div>
+        <h4>Ember</h4><span class="theme-locked">50 puzzles</span>
+      </div>
+      <div class="theme-swatch" style="background:#1A2D3A;">
+        <div class="dots"><div class="dot" style="background:#6EC6C0;"></div><div class="dot" style="background:#3A8A7A;"></div><div class="dot" style="background:#1E3545;"></div></div>
+        <h4>Tide</h4><span class="theme-locked">100 puzzles</span>
+      </div>
+      <div class="theme-swatch" style="background:#1A1E2A;">
+        <div class="dots"><div class="dot" style="background:#B8D4F0;"></div><div class="dot" style="background:#5A8AB0;"></div><div class="dot" style="background:#242A3A;"></div></div>
+        <h4>Frost</h4><span class="theme-locked">7-day no-hint streak</span>
+      </div>
+      <div class="theme-swatch" style="background:#3A2E1A;">
+        <div class="dots"><div class="dot" style="background:#F0C040;"></div><div class="dot" style="background:#7A9A3A;"></div><div class="dot" style="background:#4A3A22;"></div></div>
+        <h4>Sol</h4><span class="theme-locked">14-day no-hint streak</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <p class="eyebrow">FAQ</p>
+    <h2 style="font-size:clamp(28px,3vw,40px);">Common questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is NODO free? <span>+</span></button>
+        <div class="faq-a">Yes, completely free to download and play. The daily puzzle, past puzzles, stats, and Pressure Mode Season 1 are all free forever. Seasons 2–10 are available as a single one-time in-app purchase of £1.49.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What makes NODO different from other word puzzles? <span>+</span></button>
+        <div class="faq-a">Every letter in the NODO grid belongs to the hidden word — and only that word. There are no decoy letters, no filler, no noise. This makes the puzzle feel completely fair, while the repeated letters from the word create genuine challenge. No other word grid game does this.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What are Pressure seasons? <span>+</span></button>
+        <div class="faq-a">Each Pressure season is a 50-level challenge with its own word theme — Nature, Space, Ocean, Food, Science, Cities, Music, Sport, Abstract, and Mythology. Season 1 (Nature) is free. Unlock all nine remaining seasons with a one-time purchase. Future seasons are included in that same purchase.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do speed and combo bonuses work? <span>+</span></button>
+        <div class="faq-a">In Pressure Mode, solving a word in under 5 seconds earns a Speed bonus (+1 second). Solving two words back-to-back within 8 seconds earns a Combo bonus (+2 seconds). Both stack with your normal level bonus.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I unlock colour themes? <span>+</span></button>
+        <div class="faq-a">Classic and Night are free from the start. Dusk unlocks at 10 puzzles, Moss at 25, Ember at 50, Tide at 100. Frost unlocks with a 7-day no-hint streak, and Sol with a 14-day no-hint streak. Obsidian unlocks with the Pressure seasons purchase. The exclusive Pressure theme unlocks after completing 10 seasons.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Which devices does it work on? <span>+</span></button>
+        <div class="faq-a">NODO is available on Android now. Download it free from the Google Play Store.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What happens if I reinstall the app? <span>+</span></button>
+        <div class="faq-a">Your progress is backed up automatically to Google Drive. You can also export a manual backup from Settings → Data &amp; Backup before reinstalling, then restore it afterwards to keep your stats, streaks, and season progress.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">I found a bug. How do I report it? <span>+</span></button>
+        <div class="faq-a">Email us at hello@intoorbit.co.uk — please include your device model and what happened.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.png" alt="Into Orbit" style="height:28px;filter:brightness(0) invert(1);"><p>Independent publisher of puzzle books and digital games. Made with care in the UK.</p></div>
+      <div class="footer-col"><h4>NODO</h4><a href="#">Download Android</a><a href="nodo-books.html">NODO Books</a><a href="answers.html">Past Answers</a><a href="contact.html">Support</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Into Orbit Publishing. All rights reserved.</span>
+      <div style="display:flex;gap:20px;"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu(){const m=document.getElementById('mobileMenu');m.style.display=m.style.display==='block'?'none':'block';}
+  function toggleFaq(btn){const a=btn.nextElementSibling;const isOpen=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(el=>{el.classList.remove('open');el.previousElementSibling.querySelector('span').textContent='+';});if(!isOpen){a.classList.add('open');btn.querySelector('span').textContent='−';}}
+</script>
+</body>
+</html>
