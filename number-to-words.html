@@ -121,6 +121,21 @@
     font-weight: 600;
     color: var(--amber);
   }
+
+  .download-btn {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--dim);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .download-btn:hover { color: var(--amber); border-color: var(--amber); }
   .no-results {
     text-align: center;
     font-style: italic;
@@ -200,7 +215,10 @@
   <div id="results">
     <div class="results-header">
       <span class="results-title" id="resultsTitle"></span>
-      <span class="results-count" id="resultsCount"></span>
+      <div style="display:flex;align-items:center;gap:0.8rem;">
+        <span class="results-count" id="resultsCount"></span>
+        <button class="download-btn" onclick="downloadResults()">↓ Download</button>
+      </div>
     </div>
     <div id="resultsBody"></div>
   </div>
@@ -273,6 +291,20 @@ function search() {
   }
 
   resultsDiv.style.display = 'block';
+}
+
+function downloadResults() {
+  const val = document.getElementById('numInput').value;
+  const bucket = W[parseInt(val, 10)];
+  if (!bucket) return;
+  const words = bucket.split('|');
+  const text = words.join(', ');
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `words-sum-${val}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 document.getElementById('numInput').addEventListener('keydown', e => {
