@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#05060f">
+<title>Jump Jump Jimbo and Friends</title>
+<style>
+:root{--bs:clamp(72px,22vw,108px);--ctrlH:calc(var(--bs) + 26px + env(safe-area-inset-bottom));--txt:#f4f6ff;--hi:#ffd21e;--blue:#2b44e8}
+#app.big{--bs:clamp(92px,28vw,132px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+html,body{margin:0;height:100%;background:#05060f;overflow:hidden;overscroll-behavior:none;touch-action:manipulation;color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:env(safe-area-inset-top)}
+#stage{position:relative;width:min(100vw,576px);flex:1 1 auto;min-height:0;overflow:hidden;background:#000}
+#cv{position:absolute;left:0;top:0;display:block;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none}
+#ctrl{display:none;width:min(100vw,576px);height:var(--ctrlH);flex:0 0 auto;background:#0a0f3a;border-top:4px solid #000;box-shadow:inset 0 4px 0 #3a4ad0,inset 0 8px 0 #1a2590;padding:10px 16px calc(10px + env(safe-area-inset-bottom));justify-content:space-between;align-items:center;touch-action:none}
+#app.playing #ctrl{display:flex}
+#hud{flex:0 0 auto;width:120px;height:75px;image-rendering:pixelated;pointer-events:none}
+.cbtn{position:relative;width:var(--bs);height:var(--bs);padding:0;margin:0;border:0;background:transparent;touch-action:none;display:block;flex:none;outline:none}
+.cbtn::before{content:"";position:absolute;inset:-14px}
+.cbtn canvas{width:100%;height:100%;image-rendering:pixelated;pointer-events:none;display:block}
+.cbtn .dn{display:none}.cbtn.down .up{display:none}.cbtn.down .dn{display:block}
+#pauseBtn{position:absolute;right:8px;top:8px;width:44px;height:44px;border:0;padding:0;background:transparent;display:none;z-index:5;touch-action:manipulation}
+#pauseBtn canvas{width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+#app.playing #pauseBtn{display:block}
+#ui{position:absolute;inset:0;pointer-events:none;z-index:6}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;pointer-events:auto;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;padding:calc(10px + env(safe-area-inset-top)) 12px 14px;-webkit-overflow-scrolling:touch}
+.screen.on{display:flex}
+.screen.dim{background:rgba(3,5,25,.86)}
+.screen.dimlite{background:rgba(3,5,25,.55)}
+.panel{background:#0a0f3a;box-shadow:0 0 0 3px #000,inset 0 0 0 3px #3a4ad0,inset 0 0 0 6px #0a0f3a;padding:16px;margin:6px 4px}
+.row{display:flex;gap:8px;align-items:center}
+.col{display:flex;flex-direction:column;gap:8px}
+.grow{flex:1}.center{text-align:center;justify-content:center}
+.pb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:8px 12px;border:0;border-radius:0;background:var(--blue);color:#fff;font:900 14px/1 ui-monospace,Menlo,Consolas,monospace;cursor:pointer;box-shadow:0 0 0 3px #000,inset 0 3px 0 #7d8dff,inset 0 -4px 0 #1424a0;margin:3px;touch-action:manipulation}
+.pb:active,.pb.act{transform:translateY(2px)}
+.pb.pri{background:#ffb800;color:#000;box-shadow:0 0 0 3px #000,inset 0 3px 0 #ffe27a,inset 0 -4px 0 #c07800}
+.pb.red{background:#e0303f;box-shadow:0 0 0 3px #000,inset 0 3px 0 #ff8a92,inset 0 -4px 0 #8a1020}
+.pb.sel{background:#16a34a;box-shadow:0 0 0 3px #000,inset 0 3px 0 #7dffa8,inset 0 -4px 0 #0a6a30}
+.pb img,.hd img{image-rendering:pixelated;display:block}
+.pb.small{min-height:38px;padding:6px 8px;font-size:12px}
+.hd{display:flex;justify-content:center;margin:6px 0 10px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.back{width:46px;height:46px;flex:none;padding:0;margin:3px}
+p,li,label,td,th,.txt{font-size:14px;line-height:1.45}
+.dimtxt{color:#9fb0ff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.charb{position:relative;padding:6px 2px 4px;background:#141c64;border:0;color:#fff;font:800 11px/1.1 ui-monospace,Menlo,Consolas,monospace;box-shadow:0 0 0 3px #000,inset 0 0 0 2px #2a3ab0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.charb canvas{width:72px;height:72px;image-rendering:pixelated}
+.charb.sel{background:#1f3a9a;box-shadow:0 0 0 3px #000,0 0 0 6px #ffd21e,0 0 18px 6px rgba(255,210,30,.6),inset 0 0 0 2px #ffd21e}
+.card{position:relative;padding:0;border:0;background:#000;cursor:pointer;box-shadow:0 0 0 3px #000;color:#fff;display:flex;flex-direction:column;text-align:left}
+.card canvas{width:100%;display:block;image-rendering:pixelated}
+.card .cap{padding:6px 8px 8px;background:#10185a;font:800 12px/1.3 ui-monospace,Menlo,Consolas,monospace;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.card.sel{box-shadow:0 0 0 3px #000,0 0 0 6px #ffd21e,0 0 18px 6px rgba(255,210,30,.6)}
+.badge{width:22px;height:26px;image-rendering:pixelated}
+table{width:100%;border-collapse:collapse}
+th,td{padding:5px 3px;text-align:left;font-size:12px;white-space:nowrap}
+th{color:#ffd21e;border-bottom:2px solid #3a4ad0}
+tr:nth-child(even) td{background:rgba(255,255,255,.05)}
+td.r,th.r{text-align:right}
+.set h3{margin:12px 0 6px;font:900 13px ui-monospace,Menlo,Consolas,monospace;color:#ffd21e;letter-spacing:1px}
+.set .line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.set input[type=range]{width:46%;accent-color:#ffd21e;height:28px}
+.set input[type=checkbox]{width:26px;height:26px;accent-color:#16a34a}
+.seg{display:flex}.seg .pb{margin:0 2px;min-height:36px;padding:4px 10px;font-size:12px}
+input.name{width:100%;font:800 18px ui-monospace,Menlo,Consolas,monospace;padding:10px;background:#000;color:#ffd21e;border:3px solid #3a4ad0;border-radius:0;-webkit-user-select:text;user-select:text}
+#toast{position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:12;max-width:92%;background:#e0303f;color:#fff;font:800 12px/1.3 ui-monospace,Menlo,monospace;padding:8px 12px;box-shadow:0 0 0 3px #000;display:none;pointer-events:none;text-align:center}
+#dbg{position:absolute;left:4px;bottom:4px;margin:0;z-index:11;font:10px/1.2 ui-monospace,Menlo,monospace;color:#7dff9a;background:rgba(0,0,0,.7);padding:4px;pointer-events:none;display:none;white-space:pre}
+#rotate{position:fixed;inset:0;z-index:50;background:#05060f;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:20px}
+.shoprow{display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid rgba(255,255,255,.1)}
+.shoprow .ic{flex:0 0 66px;height:54px;display:flex;align-items:center;justify-content:center;background:#0a0f3a;box-shadow:0 0 0 2px #3a4ad0}
+.shoprow .act{flex:0 0 auto;min-width:84px}.shoprow b{font-size:14px}
+.tabs{display:flex;gap:8px}.tabs .pb{flex:1}
+.stat{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px}
+.stat b{color:#ffd21e;font-family:ui-monospace,Menlo,monospace}
+.medals{display:flex;gap:8px;align-items:center;justify-content:center}
+.medals canvas{width:28px;height:34px;image-rendering:pixelated}
+.big-banner{margin:6px 0;padding:8px;text-align:center;background:#ffb800;color:#000;font:900 15px ui-monospace,Menlo,monospace;box-shadow:0 0 0 3px #000}
+.modal{position:absolute;inset:0;background:rgba(0,0,10,.7);display:none;align-items:center;justify-content:center;z-index:20;padding:20px;pointer-events:auto}
+.modal.on{display:flex}
+.modal .panel{width:100%;max-width:340px}
+@media (max-height:620px){.panel{padding:10px}.pb{min-height:40px}}
+</style></head><body>
+<div id="app">
+  <div id="stage">
+    <canvas id="cv"></canvas>
+    <button id="pauseBtn" aria-label="Pause"></button>
+    <pre id="dbg"></pre>
+    <div id="toast"></div>
+    <div id="ui"></div>
+    <div id="logoTap" style="position:absolute;left:0;right:0;top:0;height:90px;z-index:7;display:none"></div>
+    <div class="modal" id="modal"><div class="panel" id="modalBox"></div></div>
+  </div>
+  <div id="ctrl">
+    <button class="cbtn" id="btnL" aria-label="Move left"></button>
+    <canvas id="hud" width="80" height="50" aria-hidden="true"></canvas>
+    <button class="cbtn" id="btnR" aria-label="Move right"></button>
+  </div>
+</div>
+<div id="rotate"><div style="font:900 22px ui-monospace,Menlo,monospace;color:#ffd21e">ROTATE YOUR DEVICE</div><div class="txt">Jump Jump Jimbo is a portrait game. Turn your phone upright to carry on.</div></div>
+<script>
+'use strict';
+/* ===================== Jump Jump Jimbo and Friends =====================
+   Single-file offline build. Sections: core, art, audio, game, ui.        */
+const SPRITE_DATA = {"Jimbo": {"w": 36, "h": 36, "pal": ["#0a0a14", "#fefefd", "#fefefc", "#fefdfb", "#fdfdfb", "#d7d6dc", "#d79c64", "#b1541c", "#1e2540"], "rows": ["..............000000.00.............", "............0008088008000...........", "...........00000888008000...........", "..........0422000888082240..........", "........0042228000808833240.........", ".......003322288808082322220........", ".......042222220800082232220........", "......05223222280008042222220.......", "......04222222288000022222220.......", ".....0022220002288008222222250......", ".....0022205500240802200002250......", ".....0524044224020042005000250...00.", ".....0520542224022222052240020..0880", "....00520524022502320532224010.00800", "....05520420002403220420022010.00800", "....0551052002250232032002201000800.", "....0552053322404222032002502008000.", "...0805240422500222205322200200000..", ".008005420055002222200522502500000..", "088800542200040040004000002250000...", "08000052222220080056042222225500....", ".000000533232076666500232222500.....", "..0000052232007766660022222550......", ".....0052232207766670423232500......", "......05542322077700423222550.......", "......00554222400004333325500.......", ".......055523224424222225550........", "........0555533322222245550.........", ".........05555222222555550..........", "..........005555555555500...........", "........007700055555000700..........", ".......07667770000007776670.........", "......0766766670..077667660.........", "......000766660088007667000.........", ".....888007070088880070000888.......", "........880800888888000888.........."]}, "Laggy": {"w": 36, "h": 31, "pal": ["#0a0a14", "#6bda6f", "#5ada63", "#57d75f", "#55c253", "#338838", "#348338"], "rows": ["...............000000...............", ".............0022222200.............", "............022500005220............", "...........03200....00230...........", "..........0320........0230..........", ".........0320..........0230.........", ".........020............020.........", "........0260............0620........", "........030000.........00020........", "........030140........014000........", "........0004440.......044000........", "........0004040.......040400........", "........0000040.......040400........", ".......02000040.......0404020.......", ".......05004440.......0444030.......", ".......05004400.......0440050.......", ".......0500660.........050060.......", ".......050................050.......", ".......050................050.......", "......0250......00000.....0520......", "......0250..000000000000..0520......", "......0250.04404444444440.0520......", "......020..04400000000440..020......", "......030..00444444444400..030......", "......030....0000000000....020......", ".....025....................520.....", ".....020....................020.....", "020.0250....................0520.020", "0200220......................0220020", "022220........................022220", ".0000..........................0000."]}, "Leggy": {"w": 20, "h": 36, "pal": ["#0a0a14", "#fdd83d", "#fed32a", "#feb326", "#f3a319", "#e98c18", "#ff751d", "#ed5f1b", "#9a361d"], "rows": ["........00000.......", "......022222200.....", ".....02122222220....", "....011222222222....", "....0220022200220...", "...02200022000220...", "...02200022000220...", "...02220222202220...", "....2222022202240...", "....0222000002240...", ".....42222222240....", ".....0442222444.....", "......00444400......", ".....0000000700.....", "....030667776030....", "...00501666666030...", "...030016666680030..", "..030.06666660.0530.", ".010..06666660..050.", ".050...0666670...51.", "030....0666670...030", "030...06666660...030", "030...016666670..030", "030...066666670..050", "050...066666670..050", ".00...076666700...00", "......000000000.....", ".....0500..0030.....", ".....040.....03.....", "....010......030....", "....010......040....", "....030......030....", ".....00......040....", ".....050.....0300...", "...01550.....04300..", "...0000.......000..."]}, "Blue Guy": {"w": 31, "h": 36, "pal": ["#0a0a14", "#f4fdff", "#f2fefe", "#f2fdff", "#9df7fd", "#0be7ff", "#09e9ff", "#09e7fe", "#c3cbdb", "#23b5c9", "#0d313e"], "rows": ["..00.......................00..", "..040......000000000......0490.", "..0440..000764466666000..04490.", "..0754000764444466666600044590.", "..0566457444466566666666546690.", "..096666444666666666666666690..", "..096664446656666666666666990..", "..09957446656676556666656550...", "...0954455555555555555555550...", "..00954455555555555555555550...", "..095557555555557555575757790..", "..097455557555777755577775590..", "..0954557750077777750077755790.", ".09775577750007777700077777790.", ".09777777770007757700077777790.", ".096777777700077777000777777900", ".097777777700777777500777777900", "0977777777777777777777777777990", "0977777777777777777777777777790", "0977777757773333333337557777790", "0975777700333333113311300775790", "0977777000333333333313300055790", "0955772100000333333300000357590", "0957733300a00000000000a00131990", "0955331110aaaaaaaaaaaaa01333990", "09953333300aaaaaaaaaaa003331890", "0993333313000aaaaaaa00033111890", ".081331113310000000003133113800", ".088333333333133331333333338800", ".00833233333338888833333331880.", "..0883333333333333333333338800.", "..008883333333333333333338800..", "...0088883333333333333188800...", "....00088888333333388888800....", "......0008888888888888000......", ".........00000000000000........"]}, "Green Guy": {"w": 31, "h": 36, "pal": ["#0a0a14", "#b0f979", "#65ea07", "#64ec07", "#64e906", "#64e808", "#62ea05", "#61e905", "#61e805", "#58cb15", "#2d9718", "#1f5d12"], "rows": ["............000000.............", "..........00bbbbb00............", "........00b111111600...........", ".......0b111117111800..........", "......0b11166666777b0..........", ".....0b118666666667b0..........", "....0b8167777667766b0..........", "...0b81100777006668b0..........", "...0b8100087000766ab0..........", "..006180008600066aa0...........", "..0a8180008800068a00...........", ".00a166688867766ab0............", ".0ba18668000087ab0.............", ".0b88888870058aa00.............", "0baa8888878877ab0..............", "0baa877777777ab0...............", "0ba5888888778ab0...............", "0ba5888877448b0................", "0baa448744441b0................", "0baa447744441b0................", "0baa444444441b0................", "0baa4444444414b0...........000.", ".0aa2444444411b0..........00b00", ".0ba94444444414b0........0b15b0", ".00aa24442244114b00....005122b0", "..0aa9442222221155b0000b21559b0", "..0aaa5422232223114444111325ab0", "..00aa924233333331111113332ab0.", "...0baa9423333333333332225aa00.", "...0baaa92333333333333359aaa0..", "....0baaaa9333333333339aaaa00..", ".....0baaaaa993333339aaaaa00...", "......00baaaaaaaaaaaaaaa000....", ".......000bbaaaaaaaaabb00......", "..........000bbbbbbbb000.......", "............000000000.........."]}, "Dou": {"w": 36, "h": 34, "pal": ["#0a0a14", "#f994ac", "#f7526b", "#f55068", "#f34f68", "#d1314c", "#cd324b", "#af2142", "#861332", "#570a1f", "#59071f"], "rows": ["...000000000............0000000000..", "..00a9aaa9a00000000000000a9aaaaaa00.", ".00a2111122111111111111a444411147a0.", ".0a211111221111344444444414444414700", "0a21111222223334444444444444444147a0", "0a2111222223333444444444444444441770", "0a21122222333333444444444444444417a0", "0a1112222aaaa3333334444aaaa4444417a0", "0a21222290000a4333343490000944444790", "0021222a000000a333333a000000a34387a0", ".0212220010000033333300100000436970.", ".0212220000000033333400000000666970.", ".02212a000000003333340000000066aa70.", ".00212a0800008033333308000080a69700.", "..0212a088001803333330880018066a70..", "..02123008888003333330088880066a70..", "..02122100000013336666000000266970..", "..02122211111125666666222222666a70..", "..02122222222655666666666666666a70..", "..02122222206655556666660666666a70..", "..02122226000005565550000055566a70..", ".0021222260000000000000000555559700.", ".0a21226560000000000000000555559a70.", ".0212255555000000000000005555555a70.", "00a225555550000055550000055555559700", "002255555555000055550000555555559790", "091255555555520000000025555555559790", "091555555555555222222555555555669790", "091155555555555555555555555566669790", "007115555556669999999995666666699700", ".0977965699998777777777799999997780.", ".0077779997777777777777777777778700.", "..00077777700000000000000977777900..", "...000000000000000000000000000000..."]}, "Wimbo": {"w": 35, "h": 36, "pal": ["#0a0a14", "#ffffff", "#fefffe", "#c0c2d7", "#bc9a85", "#80492d", "#2f2e3a", "#2c2d3a", "#0f2346"], "rows": ["...................0000............", ".................000600............", "............00000070000............", "...........00060060000000..........", ".........00077777706007700.........", "........0077777706006607700........", ".......007777777700006077700.......", "......0067433377700000037670.......", "......07731111377600003117600......", ".....007311111136770331113700......", ".....007311111127773111111370......", ".....003111331111671113311130....0.", ".....063113003111771130031130...060", ".....073110000111111100001130..0600", ".....073110000111111100001130..0600", ".....073113003155555230031130006000", "....077311133155554552331113000600.", "...0067631111155555551111137006000.", ".006007773111135555531111376000000.", "006700777311111355532111367700000..", "07000007711111113331111111670000...", "0000007711111111111111111177000....", ".00000061111111111111111111700.....", ".....007111111111111111111170......", "......06311111111111111111300......", "......0033111111111111111330.......", ".......033311111111111113330.......", "........0333111111111113330........", "........003331111111113340.........", ".........0033331133333300..........", "........00000003333000000..........", ".......0555555000000555550.........", "......0545555550..055555550........", ".......005455500..055555000........", ".......00050500888805500008........", "........8000008888880088..........."]}, "Mr A": {"w": 35, "h": 36, "pal": ["#0a0a14", "#8afc36", "#62fc03", "#61fc02", "#61fb02", "#61fa02", "#60fb02", "#5ffb02", "#29c101", "#19ac01", "#17a501"], "rows": ["..............0000000..............", ".............071111120.............", ".............0124222200............", "............01002200220............", "...........0000106010200...........", "...........0000000000200...........", "...........0100002000480...........", "..........00772226622680...........", "..........017702220036780..........", ".........0077700000044780..........", ".........01676600002646880.........", "........001666663224234780.........", "........0176646222224437880........", "........0176622900a24667880........", ".......017766499000a24667880.......", ".......0177666900.0a24667880.......", "......0267666990...0a26667800......", "......0167646990...0a26667880......", ".....0077764990.....0a4666280......", ".....0277636990000000a26646880.....", "....00277622662111111546667880.....", "....0277664226446644
